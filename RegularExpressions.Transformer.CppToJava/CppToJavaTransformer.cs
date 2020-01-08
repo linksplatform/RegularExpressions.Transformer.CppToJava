@@ -101,6 +101,9 @@ namespace Platform.RegularExpressions.Transformer.CppToJava
             // dictionary.containsKey(word) == dictionary.end()
             // dictionary.containsKey(word)
             (new Regex(@"(?<baseExpression>(?<variable>[_a-zA-Z0-9]+)\.containsKey\([_a-zA-Z0-9]+\)) == \k<variable>\.end\(\)"), "!${baseExpression}", null, 0),
+            // ^ ... HashMap
+            // ^ import java.util.HashMap; ... HashMap
+            (new Regex(@"\A(?<begin>((?!import java\.util\.HashMap;)(.|\n))+?)HashMap"), "import java.util.HashMap;" + Environment.NewLine + "${begin}HashMap", null, 0),
 
         }.Cast<ISubstitutionRule>().ToList();
 
