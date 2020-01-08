@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegularExpressions.Transformer.CppToJava", "RegularExpressions.Transformer.CppToJava\RegularExpressions.Transformer.CppToJava.csproj", "{89547E44-4018-4089-B4A7-1DC7059AA7C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89547E44-4018-4089-B4A7-1DC7059AA7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89547E44-4018-4089-B4A7-1DC7059AA7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89547E44-4018-4089-B4A7-1DC7059AA7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89547E44-4018-4089-B4A7-1DC7059AA7C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B88EAC5E-7700-464D-BE4A-5C71B973E812}
+	EndGlobalSection
+EndGlobal
