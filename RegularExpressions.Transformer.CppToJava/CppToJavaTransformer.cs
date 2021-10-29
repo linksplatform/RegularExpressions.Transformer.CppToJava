@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -7,21 +7,8 @@ using System.Text.RegularExpressions;
 
 namespace Platform.RegularExpressions.Transformer.CppToJava
 {
-    /// <summary>
-    /// <para>
-    /// Represents the cpp to java transformer.
-    /// </para>
-    /// <para></para>
-    /// </summary>
-    /// <seealso cref="Transformer"/>
     public class CppToJavaTransformer : Transformer
     {
-        /// <summary>
-        /// <para>
-        /// The to list.
-        /// </para>
-        /// <para></para>
-        /// </summary>
         public static readonly IList<ISubstitutionRule> FirstStage = new List<SubstitutionRule>
         {
             // #include ... using ... 
@@ -120,12 +107,6 @@ namespace Platform.RegularExpressions.Transformer.CppToJava
 
         }.Cast<ISubstitutionRule>().ToList();
 
-        /// <summary>
-        /// <para>
-        /// The to list.
-        /// </para>
-        /// <para></para>
-        /// </summary>
         public static readonly IList<ISubstitutionRule> LastStage = new List<SubstitutionRule>
         {
             // #include <map>
@@ -136,24 +117,8 @@ namespace Platform.RegularExpressions.Transformer.CppToJava
             (new Regex(@"using [^;\r\n]+;\r?\n"), "", null, 0),
         }.Cast<ISubstitutionRule>().ToList();
 
-        /// <summary>
-        /// <para>
-        /// Initializes a new <see cref="CppToJavaTransformer"/> instance.
-        /// </para>
-        /// <para></para>
-        /// </summary>
-        /// <param name="extraRules">
-        /// <para>A extra rules.</para>
-        /// <para></para>
-        /// </param>
         public CppToJavaTransformer(IList<ISubstitutionRule> extraRules) : base(FirstStage.Concat(extraRules).Concat(LastStage).ToList()) { }
 
-        /// <summary>
-        /// <para>
-        /// Initializes a new <see cref="CppToJavaTransformer"/> instance.
-        /// </para>
-        /// <para></para>
-        /// </summary>
         public CppToJavaTransformer() : base(FirstStage.Concat(LastStage).ToList()) { }
     }
 }
