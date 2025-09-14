@@ -41,12 +41,9 @@ namespace Platform.RegularExpressions.Transformer.CppToJava
             // str.pop_back()
             // str = str.substring(0, str.length() - 1)
             (new Regex(@"(?<variable>[_a-zA-Z0-9]+)\.pop_back\(\)"), "${variable} = ${variable}.substring(0, ${variable}.length() - 1)", null, 0),
-            // cout << "text";
-            // System.out.print("text");
-            (new Regex(@"cout << ""(?<text>[^""\r\n]+)"";"), "System.out.print(\"${text}\");", null, 0),
-            // cout << text;
-            // System.out.print(text);
-            (new Regex(@"cout << (?<variable>[_a-zA-Z0-9]+);"), "System.out.print(${variable});", null, 0),
+            // cout << "text"; or cout << variable;
+            // System.out.print("text"); or System.out.print(variable);
+            (new Regex(@"cout << (?<content>(?:""[^""\r\n]+"")|(?:[_a-zA-Z0-9]+));"), "System.out.print(${content});", null, 0),
             // int main() { ... getline 
             // int main() { Scanner input = new Scanner(System.in); ... getline 
             (new Regex(@"(?<method>\r?\n[ \t]*[a-zA-Z ]+ [a-zA-Z]+[ \t]*\([^\)\r\n]*\)([^\{]|\n)+{[\r\n]*)(?<indent>[ \t]+)(?<end>((?!(Scanner input = new Scanner\(System\.in\);|\k<indent>[^\r\n]+\r?\n[ \t]+}))(.|\n))+?getline\(cin)"), "${method}${indent}Scanner input = new Scanner(System.in);" + Environment.NewLine + "${indent}${end}", null, 0),
