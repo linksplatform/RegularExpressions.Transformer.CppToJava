@@ -4,7 +4,7 @@
     <Description>LinksPlatform's Platform.RegularExpressions.Transformer.CppToJava Class Library</Description>
     <Copyright>Konstantin Diachenko</Copyright>
     <AssemblyTitle>Platform.RegularExpressions.Transformer.CppToJava</AssemblyTitle>
-    <VersionPrefix>0.0.1</VersionPrefix>
+    <VersionPrefix>0.0.2</VersionPrefix>
     <Authors>Konstantin Diachenko</Authors>
     <TargetFrameworks>net471;netstandard2.0;netstandard2.1;net5;net6</TargetFrameworks>
     <AssemblyName>Platform.RegularExpressions.Transformer.CppToJava</AssemblyName>
@@ -23,7 +23,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <LangVersion>latest</LangVersion>
-    <PackageReleaseNotes>Update target framework from net7 to net8.</PackageReleaseNotes>
+    <PackageReleaseNotes>Add additional C++ to Java transformation rules for more complete translation including string indexing, map operations, exception handling, and data types.</PackageReleaseNotes>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 

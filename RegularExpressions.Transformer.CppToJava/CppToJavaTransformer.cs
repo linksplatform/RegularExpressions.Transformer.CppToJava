@@ -104,6 +104,60 @@ namespace Platform.RegularExpressions.Transformer.CppToJava
             // ^ ... HashMap
             // ^ import java.util.HashMap; ... HashMap
             (new Regex(@"\A(?<begin>((?!import java\.util\.HashMap;)(.|\n))+?)HashMap"), "import java.util.HashMap;" + Environment.NewLine + "${begin}HashMap", null, 0),
+            
+            // Additional transformation rules for more complete C++ to Java translation
+            
+            // throw "string literal";
+            // throw new Exception("string literal");
+            (new Regex(@"throw ""(?<message>[^""\r\n]+)"";"), "throw new Exception(\"${message}\");", null, 0),
+            
+            // string[index]
+            // string.charAt(index)
+            (new Regex(@"(?<string>[_a-zA-Z0-9]+)\[(?<index>[_a-zA-Z0-9]+)\]"), "${string}.charAt(${index})", null, 0),
+            
+            // variable.empty()
+            // variable.isEmpty()
+            (new Regex(@"(?<variable>[_a-zA-Z0-9]+)\.empty\(\)"), "${variable}.isEmpty()", null, 0),
+            
+            // dictionary[key] = value;
+            // dictionary.put(key, value);
+            (new Regex(@"(?<dict>[_a-zA-Z0-9]+)\[(?<key>[_a-zA-Z0-9]+)\] = (?<value>[_a-zA-Z0-9]+);"), "${dict}.put(${key}, ${value});", null, 0),
+            
+            // iter->second
+            // dictionary.get(key)
+            (new Regex(@"(?<iter>[_a-zA-Z0-9]+)->second"), "${iter}", null, 0),
+            
+            // unsigned int variable
+            // int variable  
+            (new Regex(@"unsigned (?<type>int|long|short) (?<variable>[_a-zA-Z0-9]+)"), "${type} ${variable}", null, 0),
+            
+            // unsigned variable
+            // int variable
+            (new Regex(@"unsigned (?<variable>[_a-zA-Z0-9]+)"), "int ${variable}", null, 0),
+            
+            // Complex while loop and Scanner creation rules commented out temporarily
+            // (new Regex(@"while \(getline\((?<file>[_a-zA-Z0-9]+), (?<line>[_a-zA-Z0-9]+)\)\)"), "while (${file}Scanner.hasNextLine()) { ${line} = ${file}Scanner.nextLine();", null, 0),
+            // (new Regex(@"(?<declaration>FileInputStream (?<file>[_a-zA-Z0-9]+) = new FileInputStream\([^)]+\);)(?!\s*Scanner)"), "${declaration}" + Environment.NewLine + "\t\t\tScanner ${file}Scanner = new Scanner(${file});", null, 0),
+            
+            // file.close(); (simple case for now)
+            // fileScanner.close(); file.close(); - commented out to avoid conflicts
+            // (new Regex(@"(?<file>[_a-zA-Z0-9]+)\.close\(\);"), "${file}Scanner.close();" + Environment.NewLine + "\t\t\t${file}.close();", null, 0),
+            
+            // SetConsoleCP(1251);
+            // // SetConsoleCP(1251); (comment out Windows-specific)
+            (new Regex(@"SetConsoleCP\([^)]+\);"), "// SetConsoleCP - Windows specific function removed", null, 0),
+            
+            // outputFile << finalText;
+            // PrintWriter writer = new PrintWriter(outputFile); writer.print(finalText);
+            (new Regex(@"(?<file>[_a-zA-Z0-9]+) << (?<text>[_a-zA-Z0-9]+);"), "java.io.PrintWriter writer = new java.io.PrintWriter(${file});" + Environment.NewLine + "\t\t\twriter.print(${text});", null, 0),
+            
+            // Simplified exception handling - just fix the throw statement
+            // Complex try-catch structure transformation commented out for now
+            // (new Regex(@"if \(!(?<file>[_a-zA-Z0-9]+)\)"), "try {", null, 0),
+            // (new Regex(@"throw new Exception\(""Файл не найден.""\);"), "} catch (Exception e) {" + Environment.NewLine + "\t\t\tthrow new Exception(\"Файл не найден.\");" + Environment.NewLine + "\t\t}", null, 0),
+            
+            // Remove problematic complex rule for now
+            // (new Regex(@"java\.io\.PrintWriter writer = new java\.io\.PrintWriter\((?<file>[_a-zA-Z0-9]+)\);[\s\S]*?writer\.print\([^)]+\);"), "${0}" + Environment.NewLine + "\t\t\twriter.close();" + Environment.NewLine + "\t\t\t${file}.close();", null, 0),
 
         }.Cast<ISubstitutionRule>().ToList();
 
